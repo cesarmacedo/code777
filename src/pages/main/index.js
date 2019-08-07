@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
 import AsyncStoragec from '../../class/asyncStorage';
-import { View,Text,Image } from 'react-native';
+import { View,Text,Image,Platform,StyleSheet} from 'react-native';
 import api from '../../services/api';
 import styles from './styles';
+import {Drawer, Container, Header, Content,Button } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+class SideBar extends Component {
+  render(){
+      
+      return (
+              <View style={[ styless.container, { backgroundColor: '#fff' } ]}>
+                      <Text>
+                          <Icon name="rocket" size={30} color="#900" />
+                          Conteúdo side bar
+                      </Text>
+              </View>
+             );
+  } 
+};
 
 class Main extends Component{
 
@@ -58,22 +74,52 @@ static navigationOptions = {
   componentDidMount(){
     this.setTokenStorage();
   }
+
+  closeDrawer = () => {
+    this.drawer._root.close()
+  };
+  openDrawer = () => {
+    this.drawer._root.open()
+  };    
   
   render() {
   const {object} = this.state;
     return (
-      <View>
-        <Image style={{ width: '100%', height: 80 }}source={require('../../images/news.png')}/>
-        <View style={styles.titleContainer}> 
-          <Text style={styles.title}>{object.title}</Text>
-        </View>
-        <View style={styles.container}>
-          <Text style={styles.textNews}>{object.news}</Text>
-        </View>
+      <View style={styles.body}>
+        <Drawer
+        ref={(ref) => { this.drawer = ref; }}
+        content={<SideBar navigator={this.navigator} />}
+        onClose={() => this.closeDrawer()}>
+        <Container>
+          <Header>
+              <Container style={{flexDirection: 'row'}}>
+                      <Icon onPress={() => this.openDrawer()} name="bars" size={30} color="blue" />
+              </Container>
+          </Header>
+          <Icon onPress={() => this.openDrawer()} name="bars" size={30} color="blue" />
+          <Image style={{ width: '100%', height: 80 }}source={require('../../images/news.png')}/>
+          <View style={styles.container}>
+            <View style={styles.titleContainer}> 
+              <Text style={styles.title}>{object.title}</Text>
+            </View>
+            <View style={styles.containerNews}>
+              <Text style={styles.textNews}>{object.news}</Text>
+            </View>
+          </View>
+        </Container>
+      </Drawer>
       </View>
     )
   }
 }
 
+const styless = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+});
 
 export default Main;

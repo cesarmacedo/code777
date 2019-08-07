@@ -1,6 +1,23 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+
+  body:{
+    backgroundColor:'#F5F5F5',
+    width: '100%', 
+    height: '100%',
+  },
+
+  container:{
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: '#ffffff',
+    paddingBottom: 20,
+    borderRadius: 10,
+  },
+
   titleContainer: {
     alignItems:'center',
     paddingTop: 20,
@@ -13,7 +30,7 @@ export default StyleSheet.create({
     color: '#87CEFA'
   },
     
-  container: {
+  containerNews: {
     alignItems:'center',
     paddingLeft: 20,
     paddingRight: 20,
